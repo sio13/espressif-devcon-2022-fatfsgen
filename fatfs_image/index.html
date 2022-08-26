@@ -1,7 +1,8 @@
 <table class="fixed" border="0">
     <col width="1000px" /><col width="500px" />
     <tr><td>
-        <h2>ESP32 File Server</h2>
+        <h2>Espressif FATFS File Server</h2>
+        <img src="/esp.png" alt="Italian Trulli">
     </td><td>
         <table border="0">
             <tr>
@@ -14,7 +15,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="filepath">Set path on server</label>
+                    <label for="filepath">Local path</label>
                 </td>
                 <td>
                     <input id="filepath" type="text" style="width:100%;">
@@ -38,8 +39,8 @@ function upload() {
 
     /* Max size of an individual file. Make sure this
      * value is same as that set in file_server.c */
-    var MAX_FILE_SIZE = 200*1024;
-    var MAX_FILE_SIZE_STR = "200KB";
+    var MAX_FILE_SIZE = 800*1024;
+    var MAX_FILE_SIZE_STR = "800KB";
 
     if (fileInput.length == 0) {
         alert("No file selected!");
@@ -49,8 +50,8 @@ function upload() {
         alert("File path on server cannot have spaces!");
     } else if (filePath[filePath.length-1] == '/') {
         alert("File name not specified after path!");
-    } else if (fileInput[0].size > 200*1024) {
-        alert("File size must be less than 200KB!");
+    } else if (fileInput[0].size > 800*1024) {
+        alert("File size must be less than 800KB!");
     } else {
         document.getElementById("newfile").disabled = true;
         document.getElementById("filepath").disabled = true;

@@ -31,8 +31,8 @@
 
 /* Max size of an individual file. Make sure this
  * value is same as that set in upload_script.html */
-#define MAX_FILE_SIZE   (200*1024) // 200 KB
-#define MAX_FILE_SIZE_STR "200KB"
+#define MAX_FILE_SIZE   (800*1024)
+#define MAX_FILE_SIZE_STR "800KB"
 
 /* Scratch buffer size */
 #define SCRATCH_BUFSIZE  8192
@@ -115,6 +115,9 @@ static esp_err_t http_resp_dir_html(httpd_req_t *req, const char *dirpath)
         if (strcmp(entry->d_name, "favicon.ico") == 0){
             continue;
         }
+        if (strcmp(entry->d_name, "esp.png") == 0){
+            continue;
+        }
         entrytype = (entry->d_type == DT_DIR ? "directory" : "file");
 
         strlcpy(entrypath + dirpath_len, entry->d_name, sizeof(entrypath) - dirpath_len);
@@ -169,7 +172,7 @@ static esp_err_t set_content_type_from_file(httpd_req_t *req, const char *filena
     } else if (IS_FILE_EXT(filename, ".html")) {
         return httpd_resp_set_type(req, "text/html");
     } else if (IS_FILE_EXT(filename, ".jpeg")) {
-        return httpd_resp_set_type(req, "image/jpeg");
+        return httpd_resp_set_type(req, "image/fil");
     } else if (IS_FILE_EXT(filename, ".ico")) {
         return httpd_resp_set_type(req, "image/x-icon");
     }
@@ -322,7 +325,7 @@ static esp_err_t upload_post_handler(httpd_req_t *req)
         ESP_LOGE(TAG, "File too large : %d bytes", req->content_len);
         /* Respond with 400 Bad Request */
         httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST,
-                            "File size must be less than "
+                            "The file size must be less than "
                             MAX_FILE_SIZE_STR "!");
         /* Return failure to close underlying connection else the
          * incoming file content will keep the socket busy */
